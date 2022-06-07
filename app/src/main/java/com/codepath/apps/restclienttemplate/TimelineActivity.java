@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,11 +37,28 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
     Button logoutButton;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Only call 'setContentView' once right at the top
         setContentView(R.layout.activity_timeline);
+        // Lookup swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refreshes list
+                fetchTimelineAsync(0);
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         client = TwitterApp.getRestClient(this);
 
@@ -49,6 +67,11 @@ public class TimelineActivity extends AppCompatActivity {
         // Initiate the list of tweets and adapter
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
+        // Recycler view setup: layout manager and the adapter
+        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        rvTweets.setAdapter(adapter);
+
+        populateHomeTimeline();
         logoutButton = findViewById(R.id.bLogout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -56,11 +79,31 @@ public class TimelineActivity extends AppCompatActivity {
                 onLogoutButton();
             }
         });
-        // Recycler view setup: layout manager and the adapter
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
-        rvTweets.setAdapter(adapter);
+    }
 
-        populateHomeTimeline();
+    private void fetchTimelineAsync(int page) {
+        // Send network request to fetch updated data
+        // 'client' here is an instance of Android Async HTTP
+        // getHomeTimeline is an example endpoint
+        client.getHomeTimeLine(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                // Clear out old tweets before adding new ones
+                adapter.clear();
+                // Now that the data has been fetched, add the new items to adapter
+                try {
+                    adapter.addAll(Tweet.fromJsonArray(json.jsonArray));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                swipeContainer.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.e("fetch_timeline_failure", "Fetch timeline error: " + response);
+            }
+        });
     }
 
     private void populateHomeTimeline() {
@@ -71,7 +114,7 @@ public class TimelineActivity extends AppCompatActivity {
                 JSONArray jsonArray = json.jsonArray;
                 Log.i(TAG, "onSuccess!1");
                 try {
-                    List<Tweet> tweets = Tweet.fromJsonArray(jsonArray);
+                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
                     Log.i(TAG, "onSuccess!2");
                     adapter.notifyDataSetChanged();
                     Log.i(TAG, "onSuccess!3");

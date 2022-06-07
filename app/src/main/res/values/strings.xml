@@ -7,5 +7,6 @@
     <string name="intent_host">cprest</string>
     <string name="sweet">Sweet</string>
     <string name="sugar_spice_and_everything_nice">Sugar, spice, and everything nice!</string>
+    <string name="logout">Logout</string>
 
 </resources>

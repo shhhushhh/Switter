@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".TimelineActivity">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTweets"
         android:layout_width="match_parent"
@@ -15,17 +20,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <Button
         android:id="@+id/bLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_marginBottom="5dp"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="@+id/rvTweets"
-        app:layout_constraintEnd_toEndOf="@+id/rvTweets"
-        app:layout_constraintStart_toStartOf="@+id/rvTweets" />
-
+        android:text="@string/logout"
+        app:layout_constraintBottom_toBottomOf="@+id/swipeContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/swipeContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
