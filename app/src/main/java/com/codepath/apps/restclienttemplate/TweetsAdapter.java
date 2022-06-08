@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,18 +65,28 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageView ivProfileImage;
         TextView tvBody;
         TextView tvScreenName;
+        ImageView ivEmbedImg;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileImage = itemView.findViewById(R.id.ivProfile);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
+            ivEmbedImg = itemView.findViewById(R.id.ivEmbedImg);
         }
 
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             Glide.with(context).load(tweet.user.publicImageUrl).into(ivProfileImage);
+            if (tweet.embedImgUrl != null) {
+                ivEmbedImg.setVisibility(View.VISIBLE);
+            } else {
+                ivEmbedImg.setVisibility(View.GONE);
+            }
+            Log.i("embed_img_url_actual", "is the ivEmbedImg working");
+            Glide.with(context).load(tweet.embedImgUrl).into(ivEmbedImg);
+            Log.i("embed_img_url_actual1", "is the ivEmbedImg working2");
         }
     }
 }
