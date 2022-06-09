@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:text="@string/logout"
+        android:backgroundTint="@color/button_color"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="@+id/swipeContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/swipeContainer" />

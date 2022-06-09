@@ -8,5 +8,7 @@
     <string name="sweet">Sweet</string>
     <string name="sugar_spice_and_everything_nice">Sugar, spice, and everything nice!</string>
     <string name="logout">Logout</string>
+    <string name="compose">Compose</string>
+    <string name="loading">Loading...</string>
 
 </resources>

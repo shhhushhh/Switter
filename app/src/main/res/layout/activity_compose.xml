@@ -39,6 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
+        android:backgroundTint="@color/button_color"
+        android:textColor="@android:color/white"
         android:text="@string/sweet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
