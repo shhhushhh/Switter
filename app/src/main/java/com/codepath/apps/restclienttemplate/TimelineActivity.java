@@ -181,7 +181,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     public void onReplyClick(View view) {
+        // i need to get screen name somehow and pass that info into the intent but HOW
         Intent intent = new Intent(this, ComposeActivity.class);
+//        intent.putExtra(tweet.user);
         startActivityForResult(intent, REQUEST_CODE);
     }
 
