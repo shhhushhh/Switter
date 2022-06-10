@@ -53,6 +53,7 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("tweet_mode", "extended");
 		params.put("count", 25);
 		params.put("since_id", 1);
+//		params.put("max_id", 1);
 		client.get(apiUrl, params, handler);
 		Log.i("getHomeTimeline", "Was timeline gotten? Supposedly yes");
 	}

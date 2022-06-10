@@ -41,6 +41,7 @@ public class TimelineActivity extends AppCompatActivity {
     Button logoutButton;
     private SwipeRefreshLayout swipeContainer;
     MenuItem miActionProgressItem;
+    int maxId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +183,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     public void onReplyClick(View view) {
         // i need to get screen name somehow and pass that info into the intent but HOW
+        // get the tweet -> user -> screenName
         Intent intent = new Intent(this, ComposeActivity.class);
 //        intent.putExtra(tweet.user);
         startActivityForResult(intent, REQUEST_CODE);
