@@ -49,7 +49,7 @@ Here's a walkthrough of implemented user stories:
 
 https://submissions.us-east-1.linodeobjects.com/metau_android/0Sk-rdrO.gif 
 
-<img src='http://submissions.us-east-1.linodeobjects.com/metau_android/0Sk-rdrO.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='./SwitterDemo (1).gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [Kap](https://getkap.co/).
 
